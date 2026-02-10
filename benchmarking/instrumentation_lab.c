@@ -53,15 +53,40 @@ static unsigned long reduce_checksum(void)
 int main(void)
 {
     unsigned long checksum;
+	clock_t total_start, build_start, process_start, reduce_start;
+	clock_t total_end, build_end, process_end, reduce_end;
+	double total_elapsed, build_elapsed, process_elapsed, reduce_elapsed;
 
     /* Students must add clock-based timing and print required lines. */
 
-    build_dataset();
-    process_dataset();
-    checksum = reduce_checksum();
+	total_start = clock();
 
-    if (checksum == 0ul)
-        printf("impossible\n");
+	build_start = clock();
+	build_dataset();
+	build_end = clock();
+	
+	process_start = clock();
+	process_dataset();
+	process_end = clock();
+	
+	reduce_start = clock();
+	checksum = reduce_checksum();
+	reduce_end = clock();
+
+	total_end = clock();
+
+	if (checksum == 0ul)
+		printf("impossible\n");
+
+	total_elapsed = (double)(total_end - total_start) / (double)CLOCKS_PER_SEC;
+	build_elapsed = (double)(build_end - build_start) / (double)CLOCKS_PER_SEC;
+	process_elapsed = (double)(process_end - process_start) / (double)CLOCKS_PER_SEC;
+	reduce_elapsed = (double)(reduce_end - reduce_start) / (double)CLOCKS_PER_SEC;
+
+	printf("TOTAL seconds: %.6f\n", total_elapsed);
+	printf("BUILD_DATA seconds: %.6f\n", build_elapsed);
+	printf("PROCESS seconds: %.6f\n", process_elapsed);
+	printf("REDUCE seconds: %.6f\n", reduce_elapsed);
 
     /* Required output (exact format, no extra lines):
      * TOTAL seconds: <float>
@@ -70,5 +95,5 @@ int main(void)
      * REDUCE seconds: <float>
      */
 
-    return 0;
+	return 0;
 }
