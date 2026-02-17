@@ -2,11 +2,12 @@
 #include <stdlib.h>
 
 int main(void) {
-	int operation_number;
+	int operation;
 
-	while (operation_number != 0) {
-		printf("Welcome - Simple Calculator\n");
+	printf("Welcome - Simple Calculator\n");
 
+	while (operation != 0) {
+		printf("------------------------------\n");
 		printf("------------------------------\n");
 		printf("1) Add\n");
 		printf("2) Subtract\n");
@@ -17,9 +18,12 @@ int main(void) {
 
 		printf("Choose a number for the arithmetic operation you want to apply\n"); 
 		
-		scanf("%d", &operation_number);
+		scanf("%d", &operation);
 
-		printf("Choice : %d\n", operation_number);
+		printf("Choice : %d\n", operation);
+
+		if (operation < 0 || operation > 4)
+			printf("Invalid choice\n");
 	}
 
 	printf("Bye !\n");
