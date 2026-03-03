@@ -685,7 +685,7 @@ Send the next one when ready.
 ---
 ---
 
-# HEAP EXEMPLE - MEMORY MAP
+# HEAP EXAMPLE - MEMORY MAP
 
 This program demonstrates:
 
