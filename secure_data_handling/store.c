@@ -28,12 +28,16 @@ int store_add(store_t *st, session_t *s)
 	cur = st->head;
 	while (cur) {
 		if (cur->sess && cur->sess->id && strcmp(cur->sess->id, s->id) == 0)
+		{
+			session_destroy(s);
 			return 0;
+		}
 		cur = cur->next;
 	}
 
 	n = node_create(s);
 	if (!n) {
+		session_destroy(s);
 		return 0;
 	}
 
