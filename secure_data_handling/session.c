@@ -10,8 +10,13 @@ session_t *session_create(const char *id, unsigned int uid, const unsigned char 
 	if (!s)
 		return NULL;
 
-	s->id = (char *)id;
+	/*s->id = (char *)id;*/
 
+	s->id = (char *)malloc((strlen(id) + 1) * sizeof(char));
+	if (!s->id)
+		return NULL;
+	memcpy(s->id, id, strlen(id) + 1);
+	
 	s->uid = uid;
 
 	if (data_len > 0) {
@@ -43,13 +48,14 @@ int session_set_data(session_t *s, const unsigned char *data, size_t data_len)
 		return 1;
 	}
 
-	tmp = (unsigned char *)realloc(s->data, data_len);
-	s->data = tmp;
-
-	if (!s->data) {
-		s->data_len = 0;
+	if (!data)
 		return 0;
-	}
+
+	tmp = (unsigned char *)realloc(s->data, data_len);
+	if (!tmp)
+		return 0;
+	
+	s->data = tmp;
 
 	memcpy(s->data, data, data_len);
 	s->data_len = data_len;
