@@ -65,6 +65,7 @@ session_t *store_get(store_t *st, const char *id)
 int store_delete(store_t *st, const char *id, session_t **out)
 {
 	node_t *cur, *prev;
+	(void)out;
 
 	if (!st || !id)
 		return 0;
@@ -79,8 +80,8 @@ int store_delete(store_t *st, const char *id, session_t **out)
 			else
 				st->head = cur->next;
 
-			if (out)
-				*out = cur->sess;
+			/* if (out)
+				*out = cur->sess;*/
 
 			session_destroy(cur->sess);
 			free(cur);
